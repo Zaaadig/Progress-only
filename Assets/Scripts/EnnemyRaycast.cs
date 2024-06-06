@@ -28,7 +28,15 @@ public class EnnemyRaycast : MonoBehaviour
         ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, hitReturn, QueryTriggerInteraction.Ignore))
         {
-            Debug.Log(hit.collider.gameObject.name + "was hit!");
+            if(hit.collider.tag == "Ennemy")
+            {
+                print("It's an ennemy");
+            }
+
+            if(hit.collider.tag == "Wall")
+            {
+                print("It's a wall");
+            }
         }
     }
 }
