@@ -8,6 +8,7 @@ public class EnnemyRaycast : MonoBehaviour
     public float raycastDistance = 100f;
     public LayerMask hitReturn;
     public KeyCode scan = KeyCode.E;
+    public EnnemyHP ennemyHP;
 
     private Ray ray;
 
@@ -31,6 +32,7 @@ public class EnnemyRaycast : MonoBehaviour
             if(hit.collider.tag == "Ennemy")
             {
                 print("It's an ennemy");
+                ennemyHP.TakeDamage();
             }
 
             if(hit.collider.tag == "Wall")
