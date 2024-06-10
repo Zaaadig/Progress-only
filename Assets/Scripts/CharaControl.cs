@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class CharaControl : MonoBehaviour
 {
+
     private InputHandler _input;
     public Rigidbody m_rb;
+    public Rigidbody Rb { get => m_rb; set => m_rb = value; }
     public CinemachineVirtualCamera cam;
     //public Animator m_animator;
 
@@ -14,7 +16,14 @@ public class CharaControl : MonoBehaviour
     public bool isGrounded;
     public bool isMoving;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float maxSpeed;
     [SerializeField] private float rotateSpeed;
+    [SerializeField] private float mouvementDrag;
+    [SerializeField] private float defaultDrag;
+
+    [Header("FallSystem")]
+    public bool isFalling = false;
+    [SerializeField] private float gravityScale;
 
     [Header("WallCheck")]
     public float rayDistance;
@@ -24,9 +33,10 @@ public class CharaControl : MonoBehaviour
     public float rayGroundDistance;
     [SerializeField] private Vector3 raycastCheckGroundDir;
 
+
+
     private void Awake()
     {
-        m_rb.drag = 0f;
         isGrounded = true;
         isMoving = true;
         _input = GetComponent<InputHandler>();
@@ -35,12 +45,31 @@ public class CharaControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        print(m_rb.velocity);
         WallCheck();
         GroundCheck();
+        SetDrag();
+        SetGravity();
+
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
-        var targetDirection = targetVector.x * cam.transform.right + targetVector.z * cam.transform.forward;
+
+        // Normalizer le vecteur de la camera pour normalizer les déplacement en general
+        Vector3 cameraForward  = cam.transform.forward;
+        Vector3 cameraRight = cam.transform.right;
+
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        cameraForward = cameraForward.normalized;
+        cameraRight = cameraRight.normalized;
+
+        // Utiliser le normalize pour bouger en fonction de la cam qui se déplace
+        var targetDirection = targetVector.x * cameraRight + targetVector.z * cameraForward;
         targetDirection.y = 0;
+
         var mouvementVector = Walking(targetDirection);
+
+
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
             lookDirection(mouvementVector);
@@ -64,13 +93,18 @@ public class CharaControl : MonoBehaviour
     }
     public Vector3 Walking(Vector3 targetDirection)
     {
-        if (isMoving == true && isGrounded == true)
+        // On clamp la velocité du rigid body si le player est plus au sol
+        if (isGrounded == false)
+        {
+         m_rb.velocity = Vector2.ClampMagnitude(m_rb.velocity, maxSpeed);
+        } 
+
+        if (isMoving == true)
         {
             var speed = moveSpeed * Time.fixedDeltaTime;
-
-
-            var targetPosition = transform.position + targetDirection * speed;
-            transform.position = targetPosition;
+            m_rb.velocity = Vector3.ClampMagnitude(m_rb.velocity, maxSpeed); // on utilise la maxspeed et on clamp
+            var targetPosition = m_rb.velocity + targetDirection * speed; // On calcul la position par rapport a la velocity et la direction qu'on targer (qui a été normalizer)
+            m_rb.velocity = targetPosition;
         }
         return targetDirection;
     }
@@ -83,7 +117,7 @@ public class CharaControl : MonoBehaviour
 
         if (Physics.Raycast(theRay, out RaycastHit hit, rayDistance))
         {
-            if (hit.collider.tag == "Wall")
+            if (hit.collider.tag == "Wall" || hit.collider.tag == "Ground")
             {
                 isMoving = false;
             }
@@ -109,6 +143,7 @@ public class CharaControl : MonoBehaviour
             if (hit.collider.tag == "Ground")
             {
                 isGrounded = true;
+
             }
             else
             {
@@ -120,5 +155,26 @@ public class CharaControl : MonoBehaviour
             isGrounded = false;
         }
 
+    }
+    private void SetGravity()
+    {
+        if (isGrounded == false)
+        {
+            m_rb.AddForce(Physics.gravity * gravityScale); // On va set une force de gravité par rapport a la gravité du projet et un multiplicateur (le drag influe)
+        }
+  
+    }
+    private void SetDrag()
+    {
+        // on set le drag pour ne pas glisser
+        if (isGrounded == true)
+        {
+            if (isMoving == true)
+            {
+                m_rb.drag = mouvementDrag;
+            }
+            else m_rb.drag = defaultDrag;
+        }
+        else m_rb.drag = defaultDrag;
     }
 }

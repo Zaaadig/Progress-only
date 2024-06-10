@@ -6,7 +6,7 @@ public class InputHandler : MonoBehaviour
 {
 
     public Vector2 InputVector { get; private set; }
-    void Update()
+    void FixedUpdate()
     {
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
