@@ -19,8 +19,8 @@ public class EnnemyRaycast : MonoBehaviour
     private float currentAngle;
     private Vector3 rayDirection;
     private RaycastHit hit;
-    private RaycastHit obstacleHit;
-    private List<GameObject> detectedEnnemy = new List<GameObject>();
+    //private RaycastHit obstacleHit;
+    //private List<GameObject> detectedEnnemy = new List<GameObject>();
     private void Start()
     {
         //rotation = gameObject.transform.eulerAngles = new Vector3(gameObject.transform.eulerAngles.x, gameObject.transform.eulerAngles.y +45f, gameObject.transform.eulerAngles.z);
@@ -41,7 +41,6 @@ public class EnnemyRaycast : MonoBehaviour
     }
     private void RaycastShoot()
     {
-        detectedEnnemy.Clear();
         HashSet<GameObject> checkEnnemy = new HashSet<GameObject>();
 
         stepAngle = coneAngle / numRays; // calculer l'espace entre les rays de manière intelligente (toujours avoir le meme ecartement entre les rays peut importe les paramètres)
