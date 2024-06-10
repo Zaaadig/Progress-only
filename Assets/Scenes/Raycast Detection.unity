@@ -343,7 +343,7 @@ MonoBehaviour:
   numRays: 30
   hitLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 192
   scan: 101
   cooldownTime: 0.7
 --- !u!1 &903466825
@@ -406,7 +406,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e8c3c108dd7083547bab59bccdf3a9ba, type: 2}
+  - {fileID: 2100000, guid: 161795ddead281f4fad18778c6231ef9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 1399795541}
   - component: {fileID: 1399795540}
   - component: {fileID: 1399795544}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Ennemy 2
   m_TagString: Ennemy
   m_Icon: {fileID: 0}
@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 2031393737}
   - component: {fileID: 2031393736}
   - component: {fileID: 2031393740}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: 'Ennemy '
   m_TagString: Ennemy
   m_Icon: {fileID: 0}
