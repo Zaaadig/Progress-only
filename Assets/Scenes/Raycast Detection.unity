@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastDistance: 100
-  coneAngle: 110
+  coneAngle: 120
   numRays: 30
   hitLayer:
     serializedVersion: 2
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 1399795541}
   - component: {fileID: 1399795540}
   - component: {fileID: 1399795544}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ennemy 2
   m_TagString: Ennemy
   m_Icon: {fileID: 0}
