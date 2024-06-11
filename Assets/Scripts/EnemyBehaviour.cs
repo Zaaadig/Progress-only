@@ -8,8 +8,9 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("References")]
     public NavMeshAgent agent;
     public Transform player;
-    public LayerMask ground, whatIsPlayer;
+    public LayerMask ground, whatIsPlayer; // bien mettre le layer du player la où il y a le collider
     public string playerName;
+    private Rigidbody m_rb;
 
     [Header("Patrol")]
     public Vector3 walkPoint;
@@ -19,6 +20,8 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("Attacking")]
     public float timeBetweenAttacks;
     private bool alreadyAttacked;
+    public float attackDashForce;
+    public float timeAttackAnim;
 
     [Header("States")]
     public float sightRange, attackRange;
@@ -28,6 +31,11 @@ public class EnemyBehaviour : MonoBehaviour
     {
         player = GameObject.Find(playerName).transform;
         agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Start()
+    {
+        m_rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
@@ -77,13 +85,27 @@ public class EnemyBehaviour : MonoBehaviour
         if (!alreadyAttacked)
         {
             // Coder l'attaque ici
-
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            StartCoroutine(Attack());
         }
     }
     private void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+
+    private IEnumerator Attack()
+    {
+        //agent.enabled = false;
+        alreadyAttacked = true;
+        // lancer l'anim de predash
+        transform.LookAt(player);
+        yield return new WaitForSeconds(timeAttackAnim);
+        m_rb.drag = 5;
+        m_rb.AddForce(transform.forward * attackDashForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.2f);
+        m_rb.drag = 0;
+        //agent.enabled = true;
+        
+        Invoke(nameof(ResetAttack), timeBetweenAttacks);
     }
 }
