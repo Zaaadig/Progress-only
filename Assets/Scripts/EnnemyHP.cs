@@ -20,7 +20,7 @@ public class EnnemyHP : MonoBehaviour
         
         if (baseHP <= 0)
         {
-            ennemy.GetComponent<CapsuleCollider>().enabled = false;
+            ennemy.GetComponentInChildren<CapsuleCollider>().enabled = false;
             // lancer les anims de mort à ce moment et destroy à la fin
             StartCoroutine(EnnemyDestroy());
         }
