@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 
 public class CharaControl : MonoBehaviour
 {
 
-    private InputHandler _input;
     public Rigidbody m_rb;
     public Rigidbody Rb { get => m_rb; set => m_rb = value; }
     public CinemachineVirtualCamera cam;
@@ -33,13 +33,21 @@ public class CharaControl : MonoBehaviour
     public float rayGroundDistance;
     [SerializeField] private Vector3 raycastCheckGroundDir;
 
+    private Vector3 m_currentInput;
 
 
     private void Awake()
     {
         isGrounded = true;
         isMoving = true;
-        _input = GetComponent<InputHandler>();
+    }
+
+    private void Update()
+    {
+        m_currentInput = Vector3.zero;
+        m_currentInput.x = Input.GetAxis("Horizontal");
+        m_currentInput.y = Input.GetAxis("Vertical");
+
     }
 
     // Update is called once per frame
@@ -51,7 +59,7 @@ public class CharaControl : MonoBehaviour
         SetDrag();
         SetGravity();
 
-        var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
+        var targetVector = new Vector3(m_currentInput.x, 0, m_currentInput.y);
 
         // Normalizer le vecteur de la camera pour normalizer les déplacement en general
         Vector3 cameraForward  = cam.transform.forward;
@@ -68,12 +76,8 @@ public class CharaControl : MonoBehaviour
         targetDirection.y = 0;
 
         var mouvementVector = Walking(targetDirection);
-
-
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-            lookDirection(mouvementVector);
-        }
+        lookDirection(mouvementVector);
+        
 
         //if (targetDirection.x != 0 || targetDirection.z != 0)
         //{
@@ -102,9 +106,10 @@ public class CharaControl : MonoBehaviour
         if (isMoving == true)
         {
             var speed = moveSpeed * Time.fixedDeltaTime;
-            m_rb.velocity = Vector3.ClampMagnitude(m_rb.velocity, maxSpeed); // on utilise la maxspeed et on clamp
             var targetPosition = m_rb.velocity + targetDirection * speed; // On calcul la position par rapport a la velocity et la direction qu'on targer (qui a été normalizer)
             m_rb.velocity = targetPosition;
+
+
         }
         return targetDirection;
     }
@@ -164,6 +169,7 @@ public class CharaControl : MonoBehaviour
         }
   
     }
+
     private void SetDrag()
     {
         // on set le drag pour ne pas glisser
@@ -177,4 +183,6 @@ public class CharaControl : MonoBehaviour
         }
         else m_rb.drag = defaultDrag;
     }
+
+
 }

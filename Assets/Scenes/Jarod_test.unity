@@ -221,7 +221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215430375}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.27, y: 1.44, z: -4.3521857}
+  m_LocalPosition: {x: -1.27, y: 1.26, z: -4.3521857}
   m_LocalScale: {x: 3.11, y: 3.11, z: 3.11}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -995,6 +995,34 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1218117930}
+    - target: {fileID: 2625509595058789348, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
+      propertyPath: canDash
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625509595058789348, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
+      propertyPath: dashForce
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625509595058789348, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
+      propertyPath: dashCooldown
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625509595058789348, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
+      propertyPath: gravityScale
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625509595058789348, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
+      propertyPath: mouvementDrag
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3839446857721285176, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3839446857721285176, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4853977238618560535, guid: a410296aba1cd2f4592fdfe614a4765d, type: 3}
       propertyPath: m_RootOrder
       value: 5
