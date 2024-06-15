@@ -45,7 +45,7 @@ public class CharaControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        print(m_rb.velocity);
+        //print(m_rb.velocity);
         WallCheck();
         GroundCheck();
         SetDrag();

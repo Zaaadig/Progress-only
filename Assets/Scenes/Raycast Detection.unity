@@ -428,9 +428,10 @@ GameObject:
   - component: {fileID: 659452154}
   - component: {fileID: 659452155}
   - component: {fileID: 659452156}
+  - component: {fileID: 659452157}
   m_Layer: 7
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -496,6 +497,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &659452157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659452153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777d79eecce4ff34e91afc94da1e48e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashEnnemy: 1
+  dashEnnemyHP: 7
+  baseHP: 5
+  ennemy: {fileID: 2031393735}
+  dashForce: 10
 --- !u!1 &903466825
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,8 +811,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777d79eecce4ff34e91afc94da1e48e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashEnnemy: 0
+  dashEnnemyHP: 0
   baseHP: 4
   ennemy: {fileID: 1399795539}
+  dashForce: 0
 --- !u!1 &1599577871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,7 +1124,6 @@ GameObject:
   - component: {fileID: 2031393737}
   - component: {fileID: 2031393743}
   - component: {fileID: 2031393742}
-  - component: {fileID: 2031393740}
   - component: {fileID: 2031393741}
   m_Layer: 7
   m_Name: 'Ennemy '
@@ -1179,20 +1199,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2031393740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031393735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777d79eecce4ff34e91afc94da1e48e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHP: 5
-  ennemy: {fileID: 2031393735}
 --- !u!195 &2031393741
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1228,7 +1234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2031393741}
-  player: {fileID: 0}
+  player: {fileID: 2059383883}
   ground:
     serializedVersion: 2
     m_Bits: 256

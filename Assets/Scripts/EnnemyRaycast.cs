@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnnemyRaycast : MonoBehaviour
 {
+
     [Header("References")]
     public float raycastDistance = 100f;
     public float coneAngle = 180f;
@@ -55,7 +56,7 @@ public class EnnemyRaycast : MonoBehaviour
                 if (hit.collider.CompareTag("Ennemy") && !checkEnnemy.Contains(hit.collider.gameObject))
                 {
                     if (hit.collider.tag == "Ennemy")
-                    {
+                    {                    
                         print("It's an ennemy " + hit.collider.name);
                         checkEnnemy.Add(hit.collider.gameObject);
                         EnnemyHP ennemyHP = hit.collider.GetComponent<EnnemyHP>();
