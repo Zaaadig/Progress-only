@@ -509,7 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777d79eecce4ff34e91afc94da1e48e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashEnnemy: 1
+  dashEnnemy: 0
   dashEnnemyHP: 7
   baseHP: 5
   ennemy: {fileID: 2031393735}
